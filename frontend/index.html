@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Report - Flexsol</title>
+    <link rel="icon" type="image/png" href="/frontend/images/flexsol_logo.png">
+    <link rel="stylesheet" href="/frontend/css/reset.css">
+    <link rel="stylesheet" href="/frontend/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/frontend/css/style.css">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="heading">
+        <div>
+            <img src="/frontend/images/page_logo.svg" alt="logo" class="img-responsive img-rounded logo">
+        </div>
+        <div class="report-details">
+            <h2 id="type"></h2>
+            <h2 id="value"></h2>
+        </div>
+    </div>
+</div>
+
+
+<script src="/frontend/js/jquery.min.js"></script>
+<script src="/frontend/js/bootstrap.min.js"></script>
+<script src="/frontend/js/script.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        var fields = ["CO", "Temp", "Hum", "Pre", "O3", "SO2", "NO2", "PM1", "PM2_5", "PM10"];
+        var counter = 0;
+
+        LoadData(fields[counter]);
+
+        setInterval(function () {
+            counter++;
+            LoadData(fields[counter].toUpperCase());
+            if (counter == 10) {
+                counter = 0;
+            }
+        }, 5000);
+    });
+
+    function LoadData(field) {
+        $.ajax({
+            url: 'http://localhost:9090/sensor/data?field=' + field,
+            type: "GET",
+            contentType: 'application/json',
+            success: function (result) {
+                $("#type").text(field);
+                if (field === "CO") {
+                    $("#value").html(result[field] + "<br/>&#8451");
+                } else {
+                    $("#value").text(result[field]);
+                }
+            },
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

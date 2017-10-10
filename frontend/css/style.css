@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+}
+
+h1, h2,h3,h4,h5,h6{
+    font-weight: bold;
+}
+
+.heading{
+    background-color: #ddd;
+    text-align: center;
+    width:160px;
+    height:256px;
+    max-width:160px;
+    max-height:256px;
+    position:absolute;
+    left:0;
+    padding:0;
+}
+
+.logo{
+    width: 100px;
+    padding: 10px 0;
+    margin:0 auto;
+}
+
+.report-details{
+    background-color: black;
+    color: #fff;
+    padding:2px 0;
+}
+
+.report-details h2{
+    font-size: 40px;
+}
+

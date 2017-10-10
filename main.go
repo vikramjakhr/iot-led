@@ -8,13 +8,21 @@ import (
 	"encoding/json"
 	"reflect"
 	"strings"
+	"html/template"
 )
 
 func main() {
 	http.HandleFunc("/sensor/data", Data)
+	http.Handle("/frontend/", http.StripPrefix("/frontend/", http.FileServer(http.Dir("frontend"))))
+	http.HandleFunc("/", IndexHandler)
 	//Starting server
 	log.Println("Starting Server on port 9090")
 	http.ListenAndServe(":9090", nil)
+}
+
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("frontend/index.html")
+	t.Execute(w, nil)
 }
 
 func Data(w http.ResponseWriter, req *http.Request) {
@@ -36,8 +44,8 @@ func Data(w http.ResponseWriter, req *http.Request) {
 		SO2:       values[8],
 		TIMESTAMP: values[9],
 		HUM:       values[10],
-		PRE:       values[10],
-		TEMP:      values[10],
+		PRE:       values[11],
+		TEMP:      values[12],
 	}
 	if field != "" {
 		r := reflect.ValueOf(p)
