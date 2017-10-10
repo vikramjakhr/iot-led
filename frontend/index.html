@@ -38,15 +38,15 @@
         setInterval(function () {
             counter++;
             LoadData(fields[counter].toUpperCase());
-            if (counter == 10) {
+            if (counter == 9) {
                 counter = 0;
             }
-        }, 5000);
+        }, 10000);
     });
 
     function LoadData(field) {
         $.ajax({
-            url: 'http://localhost:9090/sensor/data?field=' + field,
+            url: '/sensor/data?field=' + field,
             type: "GET",
             contentType: 'application/json',
             success: function (result) {

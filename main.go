@@ -124,7 +124,6 @@ func HTTPGet(url string, params map[string]interface{}) ([]byte, error) {
 		}
 	}
 	req.URL.RawQuery = query.Encode()
-	log.Println("GET Request :" + req.URL.String())
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err
