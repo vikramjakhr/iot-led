@@ -51,10 +51,14 @@
             contentType: 'application/json',
             success: function (result) {
                 $("#type").text(field);
-                if (field === "CO") {
+                if (field === "TEMP") {
                     $("#value").html(result[field] + "<br/>&#8451");
+                } else if (field === "HUM") {
+                    $("#value").html(result[field] + "<br/>%H");
+                } else if (field === "PRE") {
+                    $("#value").html(result[field] + "<br/>Pa");
                 } else {
-                    $("#value").text(result[field]);
+                    $("#value").html(result[field] + "<br/>ppm");
                 }
             },
             error: function (xhr, resp, text) {
